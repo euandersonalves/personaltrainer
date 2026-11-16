@@ -1,0 +1,1368 @@
+/* ============================================================
+   ESTILO DO SITE - RAMIRES PERSONAL
+   ------------------------------------------------------------
+   Este arquivo é organizado na mesma ordem do index.html.
+   Dentro de cada seção:
+     1) vem primeiro o estilo do CELULAR (é o padrão do site)
+     2) depois vem o bloco "@media (min-width: 768px)", que
+        só vale para COMPUTADOR / TELA GRANDE e muda o que for preciso.
+
+   ÍNDICE (use Ctrl+F e procure pelo número):
+     01. CORES E FONTES (variáveis)
+     02. BASE DA PÁGINA
+     03. FUNDO ANIMADO
+     04. ANIMAÇÕES (keyframes)
+     05. BOTÕES
+     06. CABEÇALHO
+     07. INÍCIO
+     08. FAIXA DE ESPECIALIDADES
+     09. SAÚDE (calculadora)
+     10. SERVIÇOS
+     11. CHAMADA FINAL
+     12. CONTATOS
+     13. RODAPÉ
+     14. APARECER AO ROLAR
+     15. REDUZIR MOVIMENTO (acessibilidade)
+
+   DICA: valores com "cqw" (ex.: 8cqw) são proporcionais à largura
+   do cartão do INÍCIO. Por isso o início se redimensiona sozinho
+   e o texto nunca fica em cima da foto.
+   ============================================================ */
+
+
+/* ============================================================
+   01. CORES E FONTES
+   Para mudar uma cor do site inteiro, mude aqui.
+   ============================================================ */
+:root {
+    --cor-fundo: #f7f7f9;
+    /* fundo da página */
+    --cor-texto: #121318;
+    /* texto principal (quase preto) */
+    --cor-cinza: #8f9196;
+    /* cinza dos destaques e avisos */
+    --cor-texto-suave: #5d6068;
+    /* texto de apoio */
+    --cor-borda: #e1e2e6;
+    /* linhas e bordas finas */
+    --cor-cartao-1: #eeeef1;
+    /* cinza claro (início do degradê dos cartões) */
+    --cor-cartao-2: #dcdde1;
+    /* cinza um pouco mais escuro (fim do degradê) */
+    --cor-escura: #15161b;
+    /* preto suave dos botões e da chamada final */
+
+    --azul: #5aa2e8;
+    --azul-claro: #8fc0f2;
+    --azul-escuro: #3f7fd0;
+
+    --fonte-titulo: Lora, Georgia, serif;
+    --fonte-texto: Inter, system-ui, sans-serif;
+    --fonte-destaque: 'Bebas Neue', Impact, sans-serif;
+
+    color-scheme: light;
+    /* o site é sempre claro, mesmo se o celular estiver no modo escuro */
+}
+
+
+/* ============================================================
+   02. BASE DA PÁGINA
+   ============================================================ */
+
+/* Faz todos os elementos contarem borda e espaço interno dentro da largura */
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* Respeita a área segura de celulares com "notch" */
+html {
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+body {
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+    font: 400 15px/1.5 var(--fonte-texto);
+    display: flex;
+    justify-content: center;
+    /* centraliza a "pagina" na tela */
+}
+
+/* Div que guarda o site inteiro */
+.pagina {
+    width: 100%;
+    max-width: 430px;
+    /* largura máxima no celular */
+    padding: 12px 12px 40px;
+    overflow-x: clip;
+    /* esconde o que passar dos lados, sem travar nada */
+}
+
+/* Contorno que aparece quando alguém navega pelo teclado (Tab) */
+a:focus-visible {
+    outline: 2px solid var(--cor-texto);
+    outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+
+    /* Computador: página mais larga e fundo com manchas bem suaves */
+    body {
+        background:
+            radial-gradient(900px 420px at 88% 0, #ebebef, rgba(235, 235, 239, 0) 70%),
+            radial-gradient(800px 520px at 0 58%, #eeeef2, rgba(238, 238, 242, 0) 70%),
+            var(--cor-fundo);
+    }
+
+    .pagina {
+        max-width: 1400px;
+        padding: 12px 24px 72px;
+    }
+}
+
+
+/* ============================================================
+   03. FUNDO ANIMADO
+   Manchas de azul claro que se movem devagar atrás de tudo.
+   É um "pseudo-elemento" do body, por isso não existe no HTML.
+   ============================================================ */
+body::before {
+    content: '';
+    position: fixed;
+    /* fica parado na tela enquanto a página rola */
+    inset: -10%;
+    z-index: -1;
+    /* fica atrás de todo o conteúdo */
+    pointer-events: none;
+    /* não atrapalha cliques */
+    background:
+        radial-gradient(38% 32% at 12% 18%, rgba(90, 162, 232, .22), transparent 70%),
+        radial-gradient(34% 32% at 88% 12%, rgba(233, 145, 145, .06), transparent 70%),
+        radial-gradient(40% 38% at 72% 88%, rgba(143, 192, 242, .24), transparent 70%);
+    animation: mover-fundo 16s ease-in-out infinite alternate;
+}
+
+
+/* ============================================================
+   04. ANIMAÇÕES (keyframes)
+   Aqui só ficam as "receitas" dos movimentos.
+   Quem usa cada uma está escrito ao lado do nome.
+   ============================================================ */
+
+/* Sobe e aparece (textos do início e seções ao rolar) */
+@keyframes subir {
+    from {
+        opacity: 0;
+        transform: translateY(26px);
+    }
+}
+
+/* Foto do Ramires entrando pela direita */
+@keyframes deslizar-entrada {
+    from {
+        opacity: 0;
+        transform: translateX(44px);
+    }
+}
+
+/* Foto do Ramires flutuando devagar */
+@keyframes flutuar {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+/* Brilho azul atrás do Ramires "respirando" */
+@keyframes brilho-pulsando {
+    from {
+        transform: scale(.9);
+        opacity: .55;
+    }
+
+    to {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+}
+
+/* Manchas do fundo da página */
+@keyframes mover-fundo {
+    from {
+        transform: translate(0, 0) scale(1);
+    }
+
+    to {
+        transform: translate(3%, 4%) scale(1.12);
+    }
+}
+
+/* Pontinhos do cartão do início deslizando */
+@keyframes mover-pontos {
+    to {
+        background-position: 44px 22px, 0 0;
+    }
+}
+
+/* Brilho colorido passando pelo texto "Viva Mais Leve" */
+@keyframes brilho-no-texto {
+    to {
+        background-position: -250% 0;
+    }
+}
+
+/* Reflexo de luz passando pelo botão "Ver planos" */
+@keyframes reflexo-no-botao {
+
+    0%,
+    60% {
+        left: -60%;
+    }
+
+    100% {
+        left: 130%;
+    }
+}
+
+/* Anel azul pulsando em volta da foto do cabeçalho */
+@keyframes pulsar-avatar {
+    0% {
+        box-shadow: 0 0 0 0 rgba(90, 162, 232, .55);
+    }
+
+    100% {
+        box-shadow: 0 0 0 11px rgba(90, 162, 232, 0);
+    }
+}
+
+/* Faixa de especialidades rolando */
+@keyframes rolar-faixa {
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+
+/* ============================================================
+   05. BOTÕES
+   .botao        = botão preto padrão
+   .botao-largo  = versão que ocupa a largura toda (usada junto com .botao)
+   ============================================================ */
+.botao {
+    border: 0;
+    border-radius: 9px;
+    padding: 10px 12px;
+    font: 500 11.5px var(--fonte-texto);
+    background: linear-gradient(180deg, #2a2b31, #121318);
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    white-space: nowrap;
+    box-shadow: 0 8px 16px -8px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .14);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.botao:hover {
+    transform: translateY(-2px);
+    /* sobe um pouquinho */
+    box-shadow: 0 12px 22px -10px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .14);
+}
+
+.botao:active {
+    transform: scale(.97);
+    /* "afunda" ao clicar */
+}
+
+.botao:focus-visible {
+    outline: 2px solid var(--cor-texto);
+    outline-offset: 2px;
+}
+
+.botao-largo {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    font-size: 14px;
+    margin-top: 14px;
+}
+
+
+/* ============================================================
+   06. CABEÇALHO
+   Foto redonda + nome (esquerda) e botão "Começar" (direita)
+   ============================================================ */
+.cabecalho {
+    position: relative;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0 -12px 8px;
+    /* margem negativa = estica até as bordas da página */
+    padding: 8px 16px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--cor-texto);
+    text-decoration: none;
+}
+
+/* Foto redonda do Ramires */
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .22);
+    animation: pulsar-avatar 2.6s ease-out infinite;
+}
+
+@media (min-width: 768px) {
+    .cabecalho {
+        margin: 0 -24px 12px;
+        padding: 12px 24px;
+    }
+
+    .avatar {
+        width: 46px;
+        height: 46px;
+    }
+
+    .logo {
+        font-size: 18px;
+        gap: 12px;
+    }
+
+    .cabecalho .botao {
+        font-size: 14px;
+        padding: 13px 24px;
+    }
+}
+
+
+/* ============================================================
+   07. INÍCIO
+   Cartão cinza com texto à esquerda e a foto do Ramires à direita.
+   Tudo aqui usa "cqw" (% da largura do cartão) para escalar junto.
+   ============================================================ */
+.secao-inicio {
+    position: relative;
+    border-radius: 26px;
+    /* duas camadas de fundo: pontinhos por cima + degradê cinza por baixo */
+    background-image:
+        radial-gradient(rgba(18, 19, 24, .10) 1.2px, transparent 1.5px),
+        linear-gradient(100deg, var(--cor-cartao-1) 50%, var(--cor-cartao-2));
+    background-size: 22px 22px, auto;
+    aspect-ratio: 100 / 78;
+    /* proporção do cartão no celular */
+    overflow: hidden;
+    container-type: inline-size;
+    /* permite usar a unidade "cqw" nos filhos */
+    animation: mover-pontos 16s linear infinite;
+}
+
+/* Brilho azul atrás do Ramires (criado só pelo CSS) */
+.secao-inicio::before {
+    content: '';
+    position: absolute;
+    right: -8%;
+    top: -5%;
+    width: 75%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 42% 42%, rgba(90, 162, 232, .36), rgba(156, 200, 245, .26) 48%, rgba(255, 255, 255, 0) 70%);
+    filter: blur(8px);
+    animation: brilho-pulsando 7s ease-in-out infinite alternate;
+    pointer-events: none;
+    /* segue o mouse no computador (--deslocamento-x/y são mudadas pelo JavaScript) */
+    translate: calc(var(--deslocamento-x, 0) * -16px) calc(var(--deslocamento-y, 0) * -10px);
+    transition: translate .35s ease-out;
+}
+
+/* ---- Texto do início ---- */
+.inicio-texto {
+    position: relative;
+    width: 66cqw;
+    padding: 7cqw 0 0 5cqw;
+}
+
+/* Tudo dentro do texto fica na frente da foto */
+.inicio-texto>* {
+    position: relative;
+    z-index: 2;
+}
+
+.inicio-titulo {
+    font-family: var(--fonte-titulo);
+    font-weight: 500;
+    letter-spacing: -.025em;
+    font-size: max(22px, 8cqw);
+    line-height: 1.06;
+    white-space: nowrap;
+    animation: subir .8s cubic-bezier(.2, .7, .2, 1) backwards;
+}
+
+/* Segunda linha do título, cinza com brilho colorido passando */
+.inicio-titulo-destaque {
+    display: block;
+    color: transparent;
+    background: linear-gradient(100deg, #8f9196 18%, #4f93e0 42%, #8fc0f2 58%, #8f9196 82%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: brilho-no-texto 6s linear infinite;
+}
+
+.inicio-descricao {
+    color: var(--cor-texto-suave);
+    margin: 3cqw 0 4cqw;
+    max-width: 52cqw;
+    font-size: max(11px, 3.9cqw);
+    line-height: 1.4;
+    animation: subir .8s .12s cubic-bezier(.2, .7, .2, 1) backwards;
+}
+
+.inicio-botoes {
+    display: flex;
+    gap: 2cqw;
+    animation: subir .8s .24s cubic-bezier(.2, .7, .2, 1) backwards;
+}
+
+/* Botão do início: maior que o padrão e com reflexo de luz */
+.secao-inicio .botao {
+    font-size: max(11px, 3.5cqw);
+    padding: 3cqw 3.6cqw;
+    position: relative;
+    overflow: hidden;
+}
+
+.secao-inicio .botao::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -60%;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .35), transparent);
+    transform: skewX(-20deg);
+    animation: reflexo-no-botao 4.5s ease-in-out infinite;
+}
+
+/* ---- Foto do Ramires ---- */
+.inicio-foto {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    animation: flutuar 7s ease-in-out infinite;
+}
+
+.inicio-foto-imagem {
+    position: absolute;
+    top: 10cqw;
+    left: 8cqw;
+    height: 100cqw;
+    width: auto;
+    max-width: none;
+    animation: deslizar-entrada 1s .15s cubic-bezier(.2, .7, .2, 1) backwards;
+    /* acompanha o mouse no computador */
+    translate: calc(var(--deslocamento-x, 0) * 10px) calc(var(--deslocamento-y, 0) * 6px);
+    transition: translate .35s ease-out;
+}
+
+@media (min-width: 768px) {
+
+    /* Computador: cartão mais largo; a cabeça do Ramires passa por cima da borda de cima */
+    .secao-inicio {
+        aspect-ratio: 1072 / 540;
+        margin-top: clamp(44px, 6.5vw, 76px);
+        overflow: visible;
+        border-radius: 30px;
+        /* recorta só embaixo (com cantos redondos), deixando a cabeça sair em cima */
+        clip-path: inset(-200px 0 0 0 round 0 0 30px 30px);
+        display: flex;
+        align-items: center;
+    }
+
+    .inicio-texto {
+        width: 50%;
+        padding: 0 0 0 6cqw;
+    }
+
+    .inicio-titulo {
+        font-size: 6.7cqw;
+        line-height: 1.04;
+    }
+
+    .inicio-descricao {
+        font-size: max(15px, 1.77cqw);
+        max-width: 33.6cqw;
+        margin: 2cqw 0 2.8cqw;
+    }
+
+    .secao-inicio .botao {
+        font-size: max(14px, 1.4cqw);
+        padding: 1.5cqw 2.6cqw;
+    }
+
+    .inicio-foto-imagem {
+        top: auto;
+        bottom: -1.3cqw;
+        left: auto;
+        right: 0;
+        height: 59.7cqw;
+    }
+}
+
+
+/* ============================================================
+   08. FAIXA DE ESPECIALIDADES
+   Texto rolando sozinho. As pontas ficam "apagadas" (máscara).
+   ============================================================ */
+.faixa-especialidades {
+    overflow: hidden;
+    margin: 26px -12px 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.faixa-trilho {
+    display: flex;
+    gap: 38px;
+    width: max-content;
+    font-weight: 600;
+    font-size: 18px;
+    white-space: nowrap;
+    align-items: center;
+    animation: rolar-faixa 28s linear infinite;
+}
+
+.faixa-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    letter-spacing: -.02em;
+}
+
+/* Símbolo antes de cada palavra: 3 tons de azul que se repetem */
+.faixa-icone {
+    font-style: normal;
+    font-size: 19px;
+    color: var(--azul);
+}
+
+.faixa-item:nth-child(3n+2) .faixa-icone {
+    color: var(--azul-claro);
+}
+
+.faixa-item:nth-child(3n) .faixa-icone {
+    color: var(--azul-escuro);
+}
+
+@media (min-width: 768px) {
+    .faixa-especialidades {
+        margin: 48px -24px 0;
+    }
+
+    .faixa-trilho {
+        font-size: 22px;
+        gap: 56px;
+    }
+}
+
+
+/* ============================================================
+   09. SAÚDE (calculadora)
+   No celular: formulário e, embaixo, o resultado (aparece depois do cálculo).
+   No computador: formulário à esquerda e resultado sempre visível à direita.
+   ============================================================ */
+.secao-saude {
+    margin-top: 26px;
+    border-radius: 26px;
+    background: linear-gradient(100deg, var(--cor-cartao-1) 50%, var(--cor-cartao-2));
+    padding: 26px 18px 20px;
+}
+
+.titulo-saude {
+    font: 500 28px/1.08 var(--fonte-titulo);
+    letter-spacing: -.025em;
+    margin-bottom: 16px;
+}
+
+/* ---- Botões Homem / Mulher ---- */
+.escolha-sexo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 0 0 14px;
+}
+
+.botao-sexo {
+    border: 1px solid var(--cor-borda);
+    background: #fff;
+    color: var(--cor-texto);
+    border-radius: 11px;
+    padding: 14px;
+    font: 500 15px var(--fonte-texto);
+    cursor: pointer;
+}
+
+/* Botão escolhido (o JavaScript troca aria-pressed entre "true" e "false") */
+.botao-sexo[aria-pressed="true"] {
+    background: var(--cor-escura);
+    border-color: var(--cor-escura);
+    color: #fff;
+}
+
+.botao-sexo:focus-visible,
+.campo-numero:focus-visible {
+    outline: 2px solid var(--cor-texto);
+    outline-offset: 2px;
+}
+
+/* ---- Campos: idade, peso, altura (3 colunas) ---- */
+.campos-medidas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.campo label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--cor-texto);
+    margin-bottom: 6px;
+}
+
+/* Caixa que segura o número e a unidade (anos / kg / cm) escrita dentro */
+.campo-caixa {
+    position: relative;
+}
+
+.campo-numero {
+    width: 100%;
+    border: 1px solid var(--cor-borda);
+    background: #fff;
+    color: var(--cor-texto);
+    border-radius: 11px;
+    padding: 14px 34px 14px 12px;
+    /* espaço à direita para a unidade */
+    font: 500 17px var(--fonte-texto);
+    -moz-appearance: textfield;
+    /* tira as setinhas do campo numérico (Firefox) */
+}
+
+/* Tira as setinhas do campo numérico (Chrome, Safari) */
+.campo-numero::-webkit-outer-spin-button,
+.campo-numero::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.campo-unidade {
+    position: absolute;
+    right: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11.5px;
+    color: var(--cor-cinza);
+    pointer-events: none;
+}
+
+.mensagem-erro {
+    color: #c2342f;
+    font-size: 12.5px;
+    margin-top: 10px;
+}
+
+/* ---- Resultado ---- */
+.resultado {
+    display: none;
+    /* escondido até o cálculo (JavaScript põe a classe "visivel") */
+    margin-top: 18px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px 18px 16px;
+}
+
+.resultado.visivel {
+    display: block;
+}
+
+.grafico-anel {
+    display: block;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+/* Arco colorido do gráfico: o tamanho cresce com animação */
+#arco-grafico {
+    transition: stroke-dasharray .9s ease;
+}
+
+.categoria {
+    text-align: center;
+    font: 600 16px var(--fonte-texto);
+    margin-top: 6px;
+}
+
+/* Antes do cálculo, o texto "Seu resultado aparece aqui" fica cinza */
+.resultado:not(.visivel) .categoria {
+    color: var(--cor-cinza);
+    font-weight: 500;
+}
+
+/* Barra com 4 faixas coloridas (as faixas são criadas pelo JavaScript) */
+.barra-faixas {
+    position: relative;
+    display: flex;
+    height: 10px;
+    margin: 20px 4px 8px;
+}
+
+.barra-faixa {
+    display: block;
+    height: 100%;
+}
+
+.barra-faixa:first-child {
+    border-radius: 99px 0 0 99px;
+}
+
+/* A última faixa é a penúltima filha, porque o marcador vem depois dela */
+.barra-faixa:nth-last-child(2) {
+    border-radius: 0 99px 99px 0;
+}
+
+/* Marcadorzinho que mostra onde a pessoa está na barra */
+.barra-marcador {
+    position: absolute;
+    top: -5px;
+    width: 4px;
+    height: 20px;
+    border-radius: 2px;
+    background: var(--cor-texto);
+    transform: translateX(-2px);
+    box-shadow: 0 0 0 2px #fff;
+}
+
+.texto-imc {
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--cor-texto-suave);
+}
+
+.texto-descricao {
+    color: var(--cor-texto-suave);
+    font-size: 14px;
+    margin: 12px 0 4px;
+    text-align: center;
+}
+
+.aviso-resultado {
+    color: var(--cor-cinza);
+    font-size: 11.5px;
+    text-align: center;
+    margin-top: 12px;
+}
+
+@media (min-width: 768px) {
+
+    /* Computador: duas colunas. Tudo na coluna 1, resultado na coluna 2 */
+    .secao-saude {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 56px;
+        align-items: start;
+        margin: 80px 0 0;
+        padding: 48px;
+    }
+
+    .secao-saude>* {
+        grid-column: 1;
+    }
+
+    .titulo-saude {
+        font-size: clamp(34px, 3.4vw, 48px);
+    }
+
+    .botao-sexo {
+        font-size: 16px;
+    }
+
+    .campo-numero {
+        font-size: 20px;
+        padding: 16px 42px 16px 14px;
+    }
+
+    /* Resultado sempre visível, ocupando a coluna da direita */
+    .secao-saude>.resultado {
+        grid-column: 2;
+        grid-row: 1 / span 6;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-self: stretch;
+        margin-top: 0;
+        padding: 32px;
+    }
+
+    .grafico-anel {
+        width: 190px;
+        height: 190px;
+    }
+
+    /* Antes do cálculo: esconde os detalhes e deixa o gráfico apagado */
+    .resultado:not(.visivel) #barra-faixas,
+    .resultado:not(.visivel) #texto-imc,
+    .resultado:not(.visivel) #texto-descricao,
+    .resultado:not(.visivel) #botao-whatsapp-resultado,
+    .resultado:not(.visivel) .aviso-resultado {
+        display: none;
+    }
+
+    .resultado:not(.visivel) .grafico-anel {
+        opacity: .45;
+    }
+}
+
+
+/* ============================================================
+   10. SERVIÇOS
+   Os cards ficam em uma "grade" com 2 linhas (2 cards em cima, 3 embaixo).
+   Quando um card é aberto o JavaScript coloca classes que mudam o
+   tamanho das linhas e das colunas:
+
+     .grade-servicos.tem-aberto        -> existe algum card aberto
+     .grade-servicos.aberto-linha-1    -> o card aberto está na linha de cima
+     .grade-servicos.aberto-linha-2    -> o card aberto está na linha de baixo
+     .linha-servicos.aberto-0/1/2      -> posição do card aberto dentro da linha
+     .card-servico.aberto              -> o card que está aberto
+   ============================================================ */
+.secao-servicos {
+    margin-top: 34px;
+}
+
+/* Título em letra condensada (também usado em "Contatos") */
+.titulo-secao {
+    font: 400 36px/1 var(--fonte-destaque);
+    letter-spacing: .01em;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+/* ---- ALTURA DAS LINHAS ---- */
+.grade-servicos {
+    display: grid;
+    gap: 8px;
+    grid-template-rows: 140px 150px;
+    /* nenhum card aberto: linha 1 = 140px, linha 2 = 150px */
+    transition: grid-template-rows .35s ease;
+}
+
+.grade-servicos.aberto-linha-1 {
+    grid-template-rows: 200px 96px;
+    /* card de cima aberto: cresce a linha 1, encolhe a 2 */
+}
+
+.grade-servicos.aberto-linha-2 {
+    grid-template-rows: 96px 210px;
+    /* card de baixo aberto: encolhe a linha 1, cresce a 2 */
+}
+
+/* ---- COLUNAS DAS LINHAS ---- */
+.linha-servicos {
+    display: grid;
+    gap: 8px;
+    min-height: 0;
+    transition: grid-template-columns .35s ease;
+}
+
+.linha-1 {
+    grid-template-columns: 1fr 1fr;
+    /* 2 cards iguais */
+}
+
+.linha-2 {
+    grid-template-columns: 1fr 1fr 1fr;
+    /* 3 cards iguais */
+}
+
+/* Linha 1 com um card aberto: o aberto fica com o dobro da largura */
+.linha-1.aberto-0 {
+    grid-template-columns: 2fr 1fr;
+}
+
+.linha-1.aberto-1 {
+    grid-template-columns: 1fr 2fr;
+}
+
+/* Linha 2 com um card aberto: o aberto fica bem maior que os outros dois */
+.linha-2.aberto-0 {
+    grid-template-columns: 1.7fr .9fr .9fr;
+}
+
+.linha-2.aberto-1 {
+    grid-template-columns: .9fr 1.7fr .9fr;
+}
+
+.linha-2.aberto-2 {
+    grid-template-columns: .9fr .9fr 1.7fr;
+}
+
+/* ---- CARD ---- */
+.card-servico {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* texto fica embaixo do card */
+    align-items: flex-start;
+    min-width: 0;
+    padding: 12px;
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #2a2d33;
+    /* cor que aparece enquanto a foto carrega */
+    color: #fff;
+    transition: filter .25s, opacity .25s, padding .3s, transform .25s;
+}
+
+.card-servico:not(.aberto):hover {
+    transform: translateY(-3px);
+}
+
+/* Foto que cobre o card inteiro */
+.card-foto {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    transition: transform .7s ease;
+}
+
+/* Camada escura por cima da foto para o texto branco ficar legível */
+.card-servico::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(10, 12, 16, .8) 0%, rgba(10, 12, 16, .3) 50%, rgba(10, 12, 16, .04) 100%);
+    transition: background .3s;
+}
+
+.card-servico.aberto::after {
+    background: linear-gradient(to top, rgba(10, 12, 16, .92) 0%, rgba(10, 12, 16, .5) 60%, rgba(10, 12, 16, .1) 100%);
+}
+
+/* Texto do card (fica na frente da foto e da camada escura) */
+.card-conteudo {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-width: 0;
+}
+
+/* O título é um botão, assim dá para abrir o card pelo teclado */
+.card-botao {
+    display: block;
+    width: 100%;
+    background: none;
+    border: 0;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.card-botao:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+    border-radius: 6px;
+}
+
+.card-titulo {
+    display: block;
+    font: 400 clamp(15px, 5.6vw, 22px)/1 var(--fonte-destaque);
+    /* encolhe em celulares bem estreitos */
+    letter-spacing: .01em;
+    text-transform: uppercase;
+}
+
+.card-subtitulo {
+    display: block;
+    font-size: 11px;
+    margin-top: 4px;
+    opacity: .85;
+    line-height: 1.35;
+}
+
+/* Parte escondida que abre: o truque é animar a altura de 0fr até 1fr */
+.card-detalhe {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows .3s ease;
+}
+
+.card-detalhe-interno {
+    min-height: 0;
+    overflow: hidden;
+}
+
+.card-texto {
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* ---- CARD ABERTO ---- */
+.card-servico.aberto {
+    padding: 14px;
+}
+
+.card-servico.aberto .card-subtitulo {
+    display: none;
+    /* o subtítulo some e dá lugar à frase do detalhe */
+}
+
+.card-servico.aberto .card-detalhe {
+    grid-template-rows: 1fr;
+}
+
+/* ---- OS OUTROS CARDS enquanto um está aberto: ficam compactos ---- */
+.grade-servicos.tem-aberto .card-servico:not(.aberto) {
+    padding: 10px;
+}
+
+.grade-servicos.tem-aberto .card-servico:not(.aberto) .card-titulo {
+    font-size: 15px;
+}
+
+.grade-servicos.tem-aberto .card-servico:not(.aberto) .card-subtitulo {
+    display: none;
+}
+
+/* ---- EFEITOS DO MOUSE (só em aparelhos com mouse) ---- */
+@media (hover: hover) {
+
+    /* Ao passar o mouse em um card, os outros ficam levemente desfocados */
+    .grade-servicos:has(.card-servico:hover) .card-servico:not(:hover) {
+        filter: blur(2.5px);
+        opacity: .8;
+    }
+
+    /* A foto do card em foco dá um zoom suave */
+    .card-servico:hover .card-foto {
+        transform: scale(1.07);
+    }
+}
+
+@media (min-width: 768px) {
+    .secao-servicos {
+        margin-top: 84px;
+    }
+
+    .titulo-secao {
+        font-size: clamp(44px, 4.4vw, 60px);
+        margin-bottom: 28px;
+    }
+
+    .grade-servicos,
+    .linha-servicos {
+        gap: 14px;
+    }
+
+    /* Alturas proporcionais à largura da tela, com mínimo e máximo */
+    .grade-servicos {
+        grid-template-rows: clamp(170px, 15vw, 220px) clamp(180px, 16vw, 240px);
+    }
+
+    .grade-servicos.aberto-linha-1 {
+        grid-template-rows: clamp(250px, 22vw, 320px) clamp(110px, 9vw, 140px);
+    }
+
+    .grade-servicos.aberto-linha-2 {
+        grid-template-rows: clamp(110px, 9vw, 140px) clamp(260px, 23vw, 330px);
+    }
+
+    .card-servico {
+        padding: 22px;
+        border-radius: 26px;
+    }
+
+    .card-titulo {
+        font-size: 34px;
+    }
+
+    .card-subtitulo {
+        font-size: 14px;
+        margin-top: 6px;
+    }
+
+    .card-servico.aberto {
+        padding: 26px;
+    }
+
+    .card-texto {
+        font-size: 16px;
+        max-width: 420px;
+    }
+
+    .grade-servicos.tem-aberto .card-servico:not(.aberto) {
+        padding: 16px;
+    }
+
+    .grade-servicos.tem-aberto .card-servico:not(.aberto) .card-titulo {
+        font-size: 22px;
+    }
+}
+
+
+/* ============================================================
+   11. CHAMADA FINAL
+   Faixa escura com o convite e o botão branco do WhatsApp
+   ============================================================ */
+.secao-chamada-final {
+    margin-top: 34px;
+    border-radius: 26px;
+    color: #fff;
+    padding: 28px 20px;
+    /* degradê escuro com um leve tom azulado */
+    background: linear-gradient(120deg, #15161b 30%, #17222f 55%, #1a2736 75%, #15161b);
+    background-size: 220% 100%;
+}
+
+.chamada-titulo {
+    font: 500 28px/1.1 var(--fonte-titulo);
+    letter-spacing: -.025em;
+}
+
+.chamada-texto {
+    color: rgba(255, 255, 255, .72);
+    font-size: 14px;
+    margin: 10px 0 18px;
+}
+
+/* Botão branco (sobrescreve o botão preto padrão) */
+.secao-chamada-final .botao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 0;
+    background: #fff;
+    color: var(--cor-escura);
+    box-shadow: none;
+}
+
+.secao-chamada-final .botao:hover {
+    box-shadow: 0 12px 26px -10px rgba(255, 255, 255, .4);
+}
+
+/* Ícone do WhatsApp dentro do botão */
+.secao-chamada-final svg {
+    width: 20px;
+    height: 20px;
+}
+
+@media (min-width: 768px) {
+
+    /* Computador: texto à esquerda e botão à direita */
+    .secao-chamada-final {
+        margin-top: 72px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        column-gap: 40px;
+        align-items: center;
+        padding: 52px 56px;
+        border-radius: 32px;
+        background: var(--cor-escura);
+        /* no computador o fundo é preto liso */
+    }
+
+    .chamada-titulo {
+        font-size: 44px;
+        grid-column: 1;
+    }
+
+    .chamada-texto {
+        grid-column: 1;
+        font-size: 17px;
+        margin: 12px 0 0;
+    }
+
+    .secao-chamada-final .botao {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        width: auto;
+        padding: 18px 30px;
+        font-size: 15px;
+    }
+}
+
+
+/* ============================================================
+   12. CONTATOS
+   Botões quadrados com o ícone de cada rede.
+   Ao passar o mouse, o ícone, a borda e o fundo ganham a cor da rede
+   (a cor vem da variável --cor-rede, escrita no HTML de cada botão).
+   ============================================================ */
+.secao-contatos {
+    margin-top: 34px;
+}
+
+.redes-sociais {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.rede-social {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid var(--cor-borda);
+    color: var(--cor-texto);
+    display: grid;
+    place-items: center;
+    transition: color .2s, border-color .2s, background .2s, transform .25s;
+}
+
+.rede-social svg {
+    width: 22px;
+    height: 22px;
+}
+
+.rede-social:hover,
+.rede-social:focus-visible,
+.rede-social:active {
+    color: var(--cor-rede);
+    border-color: var(--cor-rede);
+    background: color-mix(in srgb, var(--cor-rede) 9%, #fff);
+}
+
+.rede-social:hover,
+.rede-social:focus-visible {
+    transform: translateY(-4px);
+}
+
+@media (min-width: 768px) {
+
+    /* Computador: faixa cinza com o título à esquerda e os ícones à direita */
+    .secao-contatos {
+        margin-top: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 30px 44px;
+        border-radius: 30px;
+        background: linear-gradient(100deg, var(--cor-cartao-1) 50%, var(--cor-cartao-2));
+    }
+
+    .secao-contatos .titulo-secao {
+        margin: 0;
+        font-size: clamp(40px, 3.6vw, 52px);
+    }
+
+    .secao-contatos .redes-sociais {
+        margin: 0;
+        gap: 12px;
+    }
+
+    .rede-social {
+        width: 60px;
+        height: 60px;
+        border-radius: 18px;
+    }
+
+    .rede-social svg {
+        width: 26px;
+        height: 26px;
+    }
+}
+
+
+/* ============================================================
+   13. RODAPÉ
+   ============================================================ */
+.rodape {
+    margin-top: 30px;
+    padding: 16px 4px 0;
+    border-top: 1px solid var(--cor-borda);
+    text-align: center;
+    color: var(--cor-cinza);
+    font-size: 12.5px;
+}
+
+@media (min-width: 768px) {
+    .rodape {
+        margin-top: 44px;
+        font-size: 13px;
+    }
+}
+
+
+/* ============================================================
+   14. APARECER AO ROLAR
+   O JavaScript coloca a classe "revelar" nos blocos e, quando eles
+   entram na tela, troca para "revelado" (e a animação "subir" toca).
+   A classe "com-js" vem do <html> (veja o início do index.html).
+   ============================================================ */
+.com-js .revelar:not(.revelado) {
+    opacity: 0;
+}
+
+.revelar.revelado {
+    animation: subir .8s cubic-bezier(.2, .7, .2, 1) backwards;
+}
+
+/* A linha 2 dos serviços aparece um pouquinho depois da linha 1 */
+.revelar.linha-2.revelado {
+    animation-delay: .12s;
+}
+
+
+/* ============================================================
+   15. REDUZIR MOVIMENTO (acessibilidade)
+   Quem desativa animações no aparelho vê tudo parado.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .com-js .revelar:not(.revelado) {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light">
+    <title>Ramires Personal</title>
+
+    <!-- Fontes do Google (precisa de internet): Lora = títulos, Inter = textos, Bebas Neue = nomes dos serviços -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600&family=Inter:wght@400;500;600&family=Bebas+Neue&display=swap">
+
+    <!-- Arquivo de estilos (cores, tamanhos, animações) -->
+    <link rel="stylesheet" href="css/estilo.css">
+
+    <!-- Avisa ao CSS que o JavaScript está ligado.
+         Sem isso, as animações de "aparecer ao rolar" deixariam a página invisível se o JS falhasse. -->
+    <script>document.documentElement.classList.add("com-js");</script>
+</head>
+
+<body>
+
+    <!-- Tudo do site fica dentro desta div "pagina".
+         No celular ela tem no máximo 430px; no computador, 1400px (veja estilo.css) -->
+    <div class="pagina">
+
+
+        <!-- ==========================================================
+             1. CABEÇALHO
+             Foto redonda + nome do Ramires (leva ao topo) e botão "Começar" (abre o WhatsApp)
+             ========================================================== -->
+        <header class="cabecalho">
+            <a class="logo" href="#" aria-label="Ramires Personal, início">
+                <img class="avatar" src="imagens/avatar-ramires.webp" alt="">
+                Ramires
+            </a>
+
+            <!-- data-whatsapp = o JavaScript coloca o link do WhatsApp neste botão -->
+            <a class="botao" href="#" data-whatsapp>Começar</a>
+        </header>
+
+
+        <!-- ==========================================================
+             2. INÍCIO (a primeira tela do site)
+             Cartão cinza com título, descrição, botão e a foto do Ramires sem fundo
+             ========================================================== -->
+        <section class="secao-inicio" id="inicio">
+
+            <!-- Lado do texto -->
+            <div class="inicio-texto">
+                <h1 class="inicio-titulo">
+                    Treine Melhor
+                    <span class="inicio-titulo-destaque">Viva Mais Leve</span>
+                </h1>
+
+                <p class="inicio-descricao">
+                    Rotinas de exercício e hábitos saudáveis para viver com mais satisfação pessoal.
+                </p>
+
+                <div class="inicio-botoes">
+                    <a class="botao" href="#servicos">Ver planos</a>
+                </div>
+            </div>
+
+            <!-- Lado da foto (PNG/WebP com fundo transparente) -->
+            <div class="inicio-foto">
+                <img class="inicio-foto-imagem" src="imagens/foto-ramires-webp.png" alt="Ramires, personal trainer">
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================================
+             3. FAIXA DE ESPECIALIDADES
+             Texto que fica rolando sozinho.
+             A lista aparece DUAS VEZES de propósito: o CSS anda metade do caminho e
+             volta ao início, e por isso a segunda cópia faz o loop parecer infinito.
+             Para mudar uma especialidade, altere nas duas cópias.
+             ========================================================== -->
+        <div class="faixa-especialidades" aria-hidden="true">
+            <div class="faixa-trilho">
+
+                <!-- Cópia 1 -->
+                <span class="faixa-item"><i class="faixa-icone">✦</i>Emagrecimento</span>
+                <span class="faixa-item"><i class="faixa-icone">◆</i>Hipertrofia</span>
+                <span class="faixa-item"><i class="faixa-icone">●</i>Funcional</span>
+                <span class="faixa-item"><i class="faixa-icone">▲</i>Corrida</span>
+                <span class="faixa-item"><i class="faixa-icone">✚</i>Mobilidade</span>
+                <span class="faixa-item"><i class="faixa-icone">■</i>Hábitos</span>
+
+                <!-- Cópia 2 (igual à primeira) -->
+                <span class="faixa-item"><i class="faixa-icone">✦</i>Emagrecimento</span>
+                <span class="faixa-item"><i class="faixa-icone">◆</i>Hipertrofia</span>
+                <span class="faixa-item"><i class="faixa-icone">●</i>Funcional</span>
+                <span class="faixa-item"><i class="faixa-icone">▲</i>Corrida</span>
+                <span class="faixa-item"><i class="faixa-icone">✚</i>Mobilidade</span>
+                <span class="faixa-item"><i class="faixa-icone">■</i>Hábitos</span>
+
+            </div>
+        </div>
+
+
+        <!-- ==========================================================
+             4. SAÚDE (calculadora de gordura corporal)
+             A pessoa escolhe o sexo, digita idade, peso e altura e clica em "Ver meu resultado".
+             O cálculo é feito no arquivo js/script.js (seção "CALCULADORA DE SAÚDE").
+             No computador o resultado aparece ao lado; no celular, embaixo do botão.
+             ========================================================== -->
+        <section class="secao-saude" id="saude">
+
+            <h2 class="titulo-saude">Como está sua saúde?</h2>
+
+            <!-- Botões Homem / Mulher. O botão marcado (aria-pressed="true") fica preto -->
+            <div class="escolha-sexo" id="escolha-sexo">
+                <button class="botao-sexo" type="button" data-sexo="homem" aria-pressed="true">Homem</button>
+                <button class="botao-sexo" type="button" data-sexo="mulher" aria-pressed="false">Mulher</button>
+            </div>
+
+            <!-- Os três campos: idade, peso e altura -->
+            <div class="campos-medidas">
+
+                <div class="campo">
+                    <label for="campo-idade">Idade</label>
+                    <div class="campo-caixa">
+                        <input class="campo-numero" id="campo-idade" type="number" inputmode="numeric"
+                            placeholder="30">
+                        <span class="campo-unidade">anos</span>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="campo-peso">Peso</label>
+                    <div class="campo-caixa">
+                        <input class="campo-numero" id="campo-peso" type="number" inputmode="decimal" step="any"
+                            placeholder="75">
+                        <span class="campo-unidade">kg</span>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label for="campo-altura">Altura</label>
+                    <div class="campo-caixa">
+                        <input class="campo-numero" id="campo-altura" type="number" inputmode="decimal" step="any"
+                            placeholder="175">
+                        <span class="campo-unidade">cm</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Mensagem de erro (fica vazia até o JavaScript escrever algo) -->
+            <div class="mensagem-erro" id="mensagem-erro" role="alert"></div>
+
+            <button class="botao botao-largo" id="botao-calcular" type="button">Ver meu resultado</button>
+
+            <!-- RESULTADO: começa escondido no celular e aparece depois do cálculo (classe "visivel") -->
+            <div class="resultado" id="resultado">
+
+                <!-- Gráfico em anel. O JavaScript muda a cor e o tamanho do arco (id="arco-grafico") -->
+                <svg class="grafico-anel" viewBox="0 0 140 140" role="img"
+                    aria-label="Gráfico do percentual de gordura">
+                    <!-- Círculo cinza do fundo -->
+                    <circle cx="70" cy="70" r="56" fill="none" stroke="#e6e7eb" stroke-width="14" />
+                    <!-- Arco colorido (começa vazio: "0 352") -->
+                    <circle id="arco-grafico" cx="70" cy="70" r="56" fill="none" stroke="#999" stroke-width="14"
+                        stroke-linecap="round" stroke-dasharray="0 352" transform="rotate(-90 70 70)" />
+                    <!-- Número no meio do anel -->
+                    <text id="valor-gordura" x="70" y="72" text-anchor="middle" font-family="Lora,Georgia,serif"
+                        font-size="30" fill="#121318">—</text>
+                    <text x="70" y="92" text-anchor="middle" font-family="Inter,sans-serif" font-size="10.5"
+                        fill="#5d6068">Gordura corporal</text>
+                </svg>
+
+                <!-- Nome da faixa (ex.: "Na faixa ideal"). A cor muda pelo JavaScript -->
+                <div class="categoria" id="nome-categoria">Seu resultado aparece aqui</div>
+
+                <!-- Barra com 4 faixas coloridas e um marcador (montada pelo JavaScript) -->
+                <div class="barra-faixas" id="barra-faixas"></div>
+
+                <div class="texto-imc" id="texto-imc"></div>
+                <p class="texto-descricao" id="texto-descricao"></p>
+
+                <!-- Botão que abre o WhatsApp com uma mensagem escrita de acordo com o resultado -->
+                <a class="botao botao-largo" id="botao-whatsapp-resultado" href="#" target="_blank"
+                    rel="noopener">Falar com o Ramires no WhatsApp</a>
+
+                <p class="aviso-resultado">
+                    Estimativa inicial por fórmula. A avaliação completa é feita com o Ramires.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================================
+             5. SERVIÇOS
+             5 cards com foto: 2 na primeira linha e 3 na segunda.
+             Ao clicar em um card ele se amplia e mostra uma frase (quem faz isso é o JavaScript).
+
+             COMO ADICIONAR UM SERVIÇO: copie um bloco <div class="card-servico"> inteiro,
+             cole dentro de uma linha e troque a foto, o título e os textos.
+             Se mudar a quantidade de cards por linha, ajuste as colunas no estilo.css
+             (procure por "COLUNAS DAS LINHAS").
+             ========================================================== -->
+        <section class="secao-servicos" id="servicos">
+
+            <h2 class="titulo-secao">Serviços</h2>
+
+            <div class="grade-servicos" id="grade-servicos">
+
+                <!-- LINHA 1: 2 cards -->
+                <div class="linha-servicos linha-1" data-linha="linha-1">
+
+                    <!-- Card: Emagrecimento -->
+                    <div class="card-servico">
+                        <img class="card-foto" src="imagens/servico-emagrecimento.webp" alt=""
+                            style="object-position: 35% 3%;">
+                        <div class="card-conteudo">
+                            <button class="card-botao" type="button" aria-expanded="false"
+                                aria-controls="detalhe-emagrecimento">
+                                <span class="card-titulo">Emagrecimento</span>
+                                <span class="card-subtitulo">Perca gordura com constância.</span>
+                            </button>
+                            <!-- Parte que aparece quando o card abre -->
+                            <div class="card-detalhe" id="detalhe-emagrecimento">
+                                <div class="card-detalhe-interno">
+                                    <p class="card-texto">Treino e hábitos para reduzir gordura aos poucos, sem
+                                        radicalismo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card: Hipertrofia -->
+                    <div class="card-servico">
+                        <img class="card-foto" src="imagens/servico-hipertrofia.webp" alt=""
+                            style="object-position: 50% 0%;">
+                        <div class="card-conteudo">
+                            <button class="card-botao" type="button" aria-expanded="false"
+                                aria-controls="detalhe-hipertrofia">
+                                <span class="card-titulo">Hipertrofia</span>
+                                <span class="card-subtitulo">Ganho de massa com progressão.</span>
+                            </button>
+                            <div class="card-detalhe" id="detalhe-hipertrofia">
+                                <div class="card-detalhe-interno">
+                                    <p class="card-texto">Treino com carga progressiva para ganhar massa com
+                                        segurança.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- LINHA 2: 3 cards -->
+                <div class="linha-servicos linha-2" data-linha="linha-2">
+
+                    <!-- Card: Funcional -->
+                    <div class="card-servico">
+                        <img class="card-foto" src="imagens/servico-funcional.webp" alt=""
+                            style="object-position: 50% 40%;">
+                        <div class="card-conteudo">
+                            <button class="card-botao" type="button" aria-expanded="false"
+                                aria-controls="detalhe-funcional">
+                                <span class="card-titulo">Funcional</span>
+                                <span class="card-subtitulo">Movimento e resistência.</span>
+                            </button>
+                            <div class="card-detalhe" id="detalhe-funcional">
+                                <div class="card-detalhe-interno">
+                                    <p class="card-texto">Movimentos do dia a dia para ganhar força e disposição.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card: Mobilidade -->
+                    <div class="card-servico">
+                        <img class="card-foto" src="imagens/servico-mobilidade.webp" alt=""
+                            style="object-position: 62% 30%;">
+                        <div class="card-conteudo">
+                            <button class="card-botao" type="button" aria-expanded="false"
+                                aria-controls="detalhe-mobilidade">
+                                <span class="card-titulo">Mobilidade</span>
+                                <span class="card-subtitulo">Mais amplitude, menos desconforto.</span>
+                            </button>
+                            <div class="card-detalhe" id="detalhe-mobilidade">
+                                <div class="card-detalhe-interno">
+                                    <p class="card-texto">Alongamento para se mover melhor e se recuperar.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card: Dieta -->
+                    <div class="card-servico">
+                        <img class="card-foto" src="imagens/servico-dieta.webp" alt=""
+                            style="object-position: 50% 22%;">
+                        <div class="card-conteudo">
+                            <button class="card-botao" type="button" aria-expanded="false"
+                                aria-controls="detalhe-dieta">
+                                <span class="card-titulo">Dieta</span>
+                                <span class="card-subtitulo">Alimentação sem radicalismo.</span>
+                            </button>
+                            <div class="card-detalhe" id="detalhe-dieta">
+                                <div class="card-detalhe-interno">
+                                    <p class="card-texto">Hábitos alimentares simples para apoiar o seu objetivo.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ==========================================================
+             6. CHAMADA FINAL
+             Faixa escura com o convite final e o botão do WhatsApp
+             ========================================================== -->
+        <section class="secao-chamada-final" id="chamada-final">
+
+            <h2 class="chamada-titulo">Vamos conversar sobre o seu treino?</h2>
+            <p class="chamada-texto">Me chame no WhatsApp e eu respondo com um plano para a sua rotina.</p>
+
+            <a class="botao botao-largo" href="#" data-whatsapp>
+                <!-- Ícone do WhatsApp -->
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9l-5.05.9" />
+                    <path
+                        d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
+                </svg>
+                Chamar no WhatsApp
+            </a>
+
+        </section>
+
+
+        <!-- ==========================================================
+             7. CONTATOS
+             Botões de redes sociais. Cada um tem a cor da rede (variável --cor-rede)
+             que aparece quando passa o mouse.
+             Trocar o href="#" pelo link real de cada rede.
+             ========================================================== -->
+        <section class="secao-contatos" id="contatos">
+
+            <h2 class="titulo-secao">Contatos</h2>
+
+            <div class="redes-sociais">
+
+                <!-- WhatsApp (o link é colocado pelo JavaScript) -->
+                <a class="rede-social" href="#" data-whatsapp style="--cor-rede: #25D366;" aria-label="WhatsApp"
+                    title="WhatsApp">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9l-5.05.9" />
+                        <path
+                            d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
+                    </svg>
+                </a>
+
+                <!-- Instagram -->
+                <a class="rede-social" href="#" style="--cor-rede: #E1306C;" aria-label="Instagram"
+                    title="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                        <path d="M17.5 6.5h.01" />
+                    </svg>
+                </a>
+
+                <!-- Facebook -->
+                <a class="rede-social" href="#" style="--cor-rede: #1877F2;" aria-label="Facebook"
+                    title="Facebook">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                    </svg>
+                </a>
+               
+               
+                <!-- YouTube 
+                <a class="rede-social" href="#" style="--cor-rede: #FF0000;" aria-label="YouTube" title="YouTube">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path
+                            d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+                        <path d="m10 15 5-3-5-3z" />
+                    </svg>
+                </a>
+                -->
+
+                <!-- TikTok 
+                <a class="rede-social" href="#" style="--cor-rede: #FE2C55;" aria-label="TikTok" title="TikTok">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+                    </svg>
+                </a>
+                -->
+
+            </div>
+        </section>
+
+
+        <!-- ==========================================================
+             8. RODAPÉ
+             O ano é atualizado sozinho pelo JavaScript (se o JS falhar, aparece 2026)
+             ========================================================== -->
+        <footer class="rodape">
+            © <span id="ano-atual">2026</span> Ramires Personal. Todos os direitos reservados.
+        </footer>
+
+
+        <!-- PARA CRIAR UMA NOVA SEÇÃO: copie o modelo do arquivo LEIA-ME.md e cole aqui, antes do rodapé -->
+
+    </div>
+    <!-- fim da div "pagina" -->
+
+
+    <!-- Arquivo com toda a parte que "se mexe" no site -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
